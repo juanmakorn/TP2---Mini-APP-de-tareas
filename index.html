@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicación de Tareas (Tres Capas)</title>
+    <style>
+        body { font-family: sans-serif; }
+        #formulario-tarea { margin-bottom: 20px; }
+        #mensaje { font-weight: bold; margin-bottom: 10px; }
+        #lista-tareas ul { list-style-type: none; padding: 0; }
+        #lista-tareas li { border: 1px solid #ccc; padding: 8px; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Lista de Tareas</h1>
+
+    <div id="formulario-tarea">
+        <label for="nombre-tarea">Nueva Tarea:</label>
+        <input type="text" id="nombre-tarea">
+        <button onclick="frontend.agregarTarea()">Agregar</button>
+    </div>
+
+    <div id="mensaje"></div>
+
+    <div id="lista-tareas">
+        <h2>Tareas Guardadas:</h2>
+        <ul id="tareas-lista">
+        </ul>
+    </div>
+
+    <script src="database.js"></script>
+    <script src="backend.js"></script>
+    <script src="frontend.js"></script>
+</body>
+</html>
