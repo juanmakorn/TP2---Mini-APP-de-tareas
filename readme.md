@@ -1,107 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplicación de Tareas</title>
-    <style>
-        body { font-family: sans-serif; }
-        #formulario-tarea { margin-bottom: 20px; }
-        #mensaje { font-weight: bold; margin-bottom: 10px; }
-        #lista-tareas ul { list-style-type: none; padding: 0; }
-        #lista-tareas li { border: 1px solid #ccc; padding: 8px; margin-bottom: 5px; }
-    </style>
-</head>
-<body>
-    <h1>Lista de Tareas</h1>
-
-    <div id="formulario-tarea">
-        <label for="nombre-tarea">Nueva Tarea:</label>
-        <input type="text" id="nombre-tarea">
-        <button onclick="agregarTarea()">Agregar</button>
-    </div>
-
-    <div id="mensaje"></div>
-
-    <div id="lista-tareas">
-        <h2>Tareas Guardadas:</h2>
-        <ul id="tareas-lista">
-            </ul>
-    </div>
-
-    <script>
-        // Frontend (interacción del usuario)
-        const nombreTareaInput = document.getElementById('nombre-tarea');
-        const mensajeDiv = document.getElementById('mensaje');
-        const tareasListaUl = document.getElementById('tareas-lista');
-
-        // Evento para agregar tarea al presionar Enter
-        nombreTareaInput.addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                agregarTarea();
-            }
-        });
-
-        async function agregarTarea() {
-            const nombreTarea = nombreTareaInput.value.trim();
-
-            if (nombreTarea !== "") {
-                const respuesta = await enviarTareaAlBackend(nombreTarea);
-                mensajeDiv.textContent = respuesta;
-                nombreTareaInput.value = ""; // Limpiar el input
-                mostrarTareasGuardadas(); // Actualizar la lista de tareas
-            } else {
-                mensajeDiv.textContent = "Por favor, ingresa un nombre para la tarea.";
-            }
-        }
-
-        async function enviarTareaAlBackend(tarea) {
-            // Simulación de la comunicación con el backend (podría ser una llamada fetch a una API real)
-            const respuestaBackend = await Backend.recibirTarea(tarea);
-            return respuestaBackend;
-        }
-
-        function mostrarTareasGuardadas() {
-            tareasListaUl.innerHTML = ''; // Limpiar la lista anterior
-            Database.tareas.forEach(tarea => {
-                const li = document.createElement('li');
-                li.textContent = tarea;
-                tareasListaUl.appendChild(li);
-            });
-        }
-
-        // Backend (lógica de la aplicación)
-        const Backend = {
-            async recibirTarea(tarea) {
-                if (!tarea) {
-                    return "Error: El nombre de la tarea no puede estar vacío.";
-                }
-
-                // Simulación de la interacción con la base de datos
-                const resultadoGuardado = await Database.guardarTarea(tarea);
-                if (resultadoGuardado) {
-                    return `Tarea guardada: ${tarea}`;
-                } else {
-                    return "Error al guardar la tarea.";
-                }
-            }
-        };
-
-        // Base de datos (simulada en memoria)
-        const Database = {
-            tareas: [],
-            async guardarTarea(tarea) {
-                this.tareas.push(tarea);
-                console.log("Tarea guardada en la base de datos (simulada):", this.tareas);
-                return true; // Simula una operación exitosa de guardado
-            }
-        };
-
-        // Mostrar las tareas guardadas al cargar la página
-        mostrarTareasGuardadas();
-
-        /*
-        Comentarios sobre Escalabilidad, Mantenibilidad y Seguridad:
+##      Comentarios sobre Escalabilidad, Mantenibilidad y Seguridad:
 
         Escalabilidad: Permite que el sistema crezca y se adapte a mayores demandas.
         - Frontend:
@@ -135,7 +32,12 @@
             - **Seguridad:** Es crucial validar y sanitizar todas las entradas del usuario para prevenir ataques como la inyección SQL (si se usara una base de datos SQL) o ataques de comandos.
             - **Seguridad:** Se deben implementar mecanismos de autenticación y autorización para proteger el acceso a los recursos.
             - **Seguridad:** La comunicación entre el frontend y el backend (en una aplicación real) debería realizarse a través de HTTPS para cifrar los datos en tránsito.
-        */
-    </script>
-</body>
-</html>
+ 
+
+echo "# TP2---Mini-APP-de-tareas" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/juanmakorn/TP2---Mini-APP-de-tareas.git
+git push -u origin main
